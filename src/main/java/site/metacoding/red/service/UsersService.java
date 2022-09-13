@@ -55,7 +55,7 @@ public class UsersService {
 		
 		if(usersPS == null) { // 아이디가 중복 안됨
 			return false;
-		}else { // 아이디가 중복됨
+		}else { // 아이디가 중복 됨
 			return true;
 		}
 	}
