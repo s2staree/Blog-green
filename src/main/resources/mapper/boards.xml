@@ -14,10 +14,10 @@
 		SELECT totalCount,
 		totalPage,
 		currentPage,
-		decode(currentPage, 0, 1, 0)
-		first,
-		decode(currentPage, totalPage-1, 1,
-		0) last
+
+		if(currentPage = 0, 1, 0) first,
+		if(currentPage = totalPage-1, 1, 0) last
+		
 		FROM
 		(
 		select count(*)
@@ -27,9 +27,9 @@
 		last
 		FROM boards
 		<if test="keyword != null">
-			WHERE title like '%'||#{keyword}||'%'
+			WHERE title like CONCAT('%',#{keyword},'%')
 		</if>
-		)
+		) result
 	</select>
 
 	<insert id="insert">
@@ -54,7 +54,7 @@
 		ON
 		b.usersId = u.id
 		<if test="keyword != null">
-			WHERE title like '%'||#{keyword}||'%'
+			WHERE title like CONCAT('%',#{keyword},'%')
 		</if>
 		ORDER BY b.id DESC
 		OFFSET #{startNum} ROWS
@@ -66,7 +66,7 @@
 		#{content} WHERE id = #{id}
 	</update>
 	
-	<delete id="delete">
+	<delete id="deleteById">
 		DELETE FROM boards WHERE id = #{id}
 	</delete>
 	

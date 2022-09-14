@@ -9,17 +9,19 @@ import site.metacoding.red.domain.boards.Boards;
 import site.metacoding.red.domain.boards.BoardsDao;
 import site.metacoding.red.domain.users.Users;
 import site.metacoding.red.domain.users.UsersDao;
+import site.metacoding.red.web.dto.request.boards.WriteDto;
 import site.metacoding.red.web.dto.request.users.UpdateDto;
+import site.metacoding.red.web.dto.response.boards.MainDto;
 
 @RequiredArgsConstructor
 @Service
 public class BoardsService {
 	
-	public void 게시글목록보기(Integer page, String keyword) {}
-	public void 게시글상세보기(Integer id) {}
-	public void 게시글수정하기(Integer id) {}
-	public void 게시글삭제하기() {}
-	public void 게시글쓰기() {}
+//	public void 게시글목록보기(Integer page, String keyword) {}
+//	public void 게시글상세보기(Integer id) {}
+//	public void 게시글수정하기(Integer id) {}
+//	public void 게시글삭제하기() {}
+//	public void 게시글쓰기() {}
 	
 	public final UsersDao usersDao;
 	private final BoardsDao boardsDao;
@@ -29,6 +31,11 @@ public class BoardsService {
 			page = 0;
 		}
 		int startNum = page * 3;
+		
+		System.out.println("==========");
+		System.out.println("keyword : "+keyword);
+		System.out.println("==========");
+		
 		List<MainDto> boardsList = boardsDao.findAll(startNum, keyword);
 		PagingDto pagingDto = boardsDao.paging(page, keyword);
 		if (boardsList.size() == 0)
@@ -39,7 +46,7 @@ public class BoardsService {
 		return pagingDto;
 	}
 	
-	public Boards 게시글상세보기(integer id) {
+	public Boards 게시글상세보기(Integer id) {
 		return boardsDao.findById(id);
 	}
 	
