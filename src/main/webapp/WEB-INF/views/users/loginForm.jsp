@@ -26,6 +26,7 @@
 				username: $("#username").val(),
 				password: $("#password").val(),
 		};
+		
 		$.ajax("/login",{
 			type: "POST",
 			dataType: "json",	// 응답 데이터
@@ -41,6 +42,7 @@
 //				history.back();
 			}
 		});
+		
 	});
 </script>
 
