@@ -18,6 +18,7 @@ import site.metacoding.red.util.Script;
 import site.metacoding.red.web.dto.request.users.JoinDto;
 import site.metacoding.red.web.dto.request.users.LoginDto;
 import site.metacoding.red.web.dto.request.users.UpdateDto;
+import site.metacoding.red.web.dto.response.CMRespDto;
 
 @RequiredArgsConstructor
 @Controller
@@ -25,6 +26,13 @@ public class UsersController {
 
 	private final UsersService usersService;
 	private final HttpSession session;
+	
+	// http://localhost:8000/users/usersnameCheck?username=ssar
+	@GetMapping("/users/usernameCheck")
+	public @ResponseBody CMRespDto<Boolean> usernameCheck(String username) {
+		boolean isSame = usersService.유저네임중복확인(username);
+		return new CMRespDto<>(1, "성공", isSame);
+	}
 	
 	@GetMapping("/joinForm")
 	public String joinForm() {
