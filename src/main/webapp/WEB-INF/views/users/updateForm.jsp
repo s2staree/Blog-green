@@ -22,54 +22,7 @@
 	</form>
 </div>
 
-<script>
-
-	$("#btnDelete").click(()=>{
-	
-		let id = $("#id").val();
-		
-		$.ajax("/users/"+id,{
-			type: "DELETE",
-			dataType: "json"	// 응답 데이터
-			
-		}).done((res)=>{
-			if(res.code == 1){
-				alert("회원탈퇴 완료");
-				location.href = "/";	// 메인 페이지로 이동
-			}else{
-				alert("회원탈퇴에 실패하였습니다.");
-			}
-		});
-		
-	});
-
-	$("#btnUpdate").click(()=>{
-		
-		let data = {
-				password: $("#password").val(),
-				email: $("#email").val(),
-		};
-		
-		let id = $("#id").val();
-		
-		$.ajax("/users/"+id,{
-			type: "PUT",
-			dataType: "json",	// 응답 데이터
-			data: JSON.stringify(data),	// http body에 들고갈 요청 데이터
-			headers : {	// http header에 들고갈 요청 데이터
-				"Content-Type" : "application/json; charset=utf-8"
-			}
-		}).done((res)=>{
-			if(res.code == 1){
-				alert("회원수정 완료");
-				location.reload();	// f5(새로고침)와 같은 기능
-			}else{
-				alert("업데이트에 실패하였습니다.");
-			}
-		});
-		
-	});
-</script>
+<script src="/js/users.js"></script>
 
 <%@ include file="../layout/footer.jsp"%>
 
