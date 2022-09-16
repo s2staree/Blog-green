@@ -41,7 +41,7 @@
 		resultType="site.metacoding.red.web.dto.response.boards.MainDto">
 		SELECT *
 		FROM boards b
-		INNER JOIN
+		LEFT OUTER JOIN
 		users u
 		ON
 		b.usersId = u.id

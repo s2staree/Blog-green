@@ -10,4 +10,7 @@ public class MainDto {
 	private String title;
 	private String username;
 
+//	public String getUsername() {
+//		return username == null ? "탈퇴한 회원입니다" : username;
+//	}
 }
