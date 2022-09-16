@@ -1,5 +1,7 @@
 package site.metacoding.red.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -52,16 +54,24 @@ public class UsersController {
 	}
 	
 	@PostMapping("/login")
-	public @ResponseBody CMRespDto<?> login(@RequestBody LoginDto loginDto) {
-		Users principal = usersService.로그인(loginDto);
-		
-		if(principal == null) {
-			return new CMRespDto<>(-1, "로그인 실패", null);
-		}
-		
-		session.setAttribute("principal", principal);
-		return new CMRespDto<>(1, "로그인 성공", null);
-	}
+	   public @ResponseBody CMRespDto<?> login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
+	      System.out.println("=============");
+	      System.out.println(loginDto.isRemember());
+	      System.out.println("=============");
+	      
+	      if(loginDto.isRemember() == true) {
+	         response.setHeader("Set-Cookie", "username="+loginDto.getUsername());
+	      }
+	      
+	      Users principal = usersService.로그인(loginDto);
+
+	      if (principal == null) {
+	         return new CMRespDto<>(-1, "로그인실패", null);
+	      }
+
+	      session.setAttribute("principal", principal);
+	      return new CMRespDto<>(1, "로그인 성공", null);
+	   }
 	
 	@GetMapping("/users/{id}")
 	public String updateForm(@PathVariable Integer id, Model model) {

@@ -17,7 +17,6 @@ $("#btnUsernameSameCheck").click(() => {
 
 
 
-
 /* loginForm.jsp 링크 */
 
 $("#btnLogin").click(() => {
@@ -98,12 +97,19 @@ function checkUsername(){
 	});
 }
 
+/*
+function loginTest(){
+	let remember = $("#remember").prop("checked");
+	console.log(remember);
+}
+*/
 
 function login(){
 	
 	let data = {
 		username: $("#username").val(),
 		password: $("#password").val(),
+		remember: $("#remember").prop("checked")
 	};
 
 	$.ajax("/login", {
