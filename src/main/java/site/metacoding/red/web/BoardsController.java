@@ -54,7 +54,7 @@ public class BoardsController {
 
 	@GetMapping("/boards/{id}/updateForm")
 	public String updateForm(@PathVariable Integer id, Model model) {
-		Boards boardsPS = boardsService.게시글상세보기(id);
+		Boards boardsPS = boardsService.게시글수정화면데이터가져오기(id);
 		model.addAttribute("boards", boardsPS);
 		return "boards/updateForm";
 	}
@@ -85,12 +85,17 @@ public class BoardsController {
 		return "boards/main";
 	}
 
-	   @GetMapping("/boards/{id}")
-	   public String getBoardDetail(@PathVariable Integer id, Model model) {
-	      Users principal = (Users) session.getAttribute("principal");
-	      model.addAttribute("detailDto", boardsService.게시글상세보기(id, principal.getId()));
-	      return "boards/detail";
-	   }
+	@GetMapping("/boards/{id}")
+	public String getBoardDetail(@PathVariable Integer id, Model model) {
+		Users principal = (Users) session.getAttribute("principal");
+		if(principal == null) {
+			model.addAttribute("detailDto", boardsService.게시글상세보기(id, 0));
+		}else {
+			model.addAttribute("detailDto", boardsService.게시글상세보기(id, principal.getId()));
+		}
+		
+		return "boards/detail";
+	}
 
 	@GetMapping("/boards/writeForm")
 	public String writeForm() {

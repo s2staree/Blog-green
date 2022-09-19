@@ -63,6 +63,10 @@ public class BoardsService {
 		      }
 		      return new DetailDto(boardsPS, lovesDto);
 		   }
+	   
+	public Boards 게시글수정화면데이터가져오기(Integer id) {
+		return boardsDao.findById(id);
+	}
 
 	public void 게시글수정하기(Integer id, UpdateDto updateDto) {
 		// 1. 영속화
@@ -77,10 +81,6 @@ public class BoardsService {
 
 		// 3. 수행
 		boardsDao.update(boardsPS);
-	}
-
-	public Boards 게시글수정화면데이터가져오기(Integer id) {
-		return boardsDao.findById(id);
 	}
 	
 	public void 게시글삭제하기(Integer id) {

@@ -78,6 +78,9 @@
       }).done((res) => {
          if (res.code == 1) {
             renderLoves();
+            // 좋아요수 1 증가
+            let count = $("#countLove").text();
+            $("#countLove").text(Number(count)+1);	// 부분 리로드
          }else{
             alert("좋아요 실패했습니다");
          }
@@ -85,8 +88,22 @@
    }
    
    // DB에 delete 요청하기
-   function deleteLove(isLovedState){
-      
+   function deleteLove(){
+	   let id = $("#id").val();
+	      
+	      $.ajax("/boards/"+id+"/loves", {
+	         type: "DELETE",
+	         dataType: "json"
+	      }).done((res) => {
+	         if (res.code == 1) {
+	            renderLoves();
+	            // 좋아요수 1 증가
+	            let count = $("#countLove").text();
+	            $("#countLove").text(Number(count)+1);	// 부분 리로드
+	         }else{
+	            alert("좋아요 실패했습니다");
+	         }
+	      });
    }
    
    // 빨간색 하트 그리기
