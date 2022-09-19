@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.red.domain.boards.Boards;
+import site.metacoding.red.domain.loves.Loves;
 import site.metacoding.red.domain.users.Users;
 import site.metacoding.red.service.BoardsService;
 import site.metacoding.red.web.dto.request.boards.UpdateDto;
@@ -35,6 +36,15 @@ public class BoardsController {
 	 * 
 	 *     인증과 권한 체크는 지금 하지 마세요!!
 	 */
+	
+	// 어떤 게시글을 누가 좋아요했는지 (boardsId, usersId 필요)
+	@PostMapping("/boards/{id}/loves")	// 게시글 boards의 id번을 좋아요 하겠다.
+	public @ResponseBody CMRespDto<?> insertLoves(@PathVariable Integer id){
+		Users principal = (Users) session.getAttribute("principal");
+		Loves loves = new Loves(principal.getId(), id);
+		boardsService.좋아요(loves);
+		return new CMRespDto<>(1, "좋아요 성공", null);
+	}
 	
 	@PutMapping("/boards/{id}")
 	public @ResponseBody CMRespDto<?> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto) {
@@ -77,7 +87,8 @@ public class BoardsController {
 
 	@GetMapping("/boards/{id}")
 	public String getBoardDetail(@PathVariable Integer id, Model model) {
-		model.addAttribute("boards", boardsService.게시글상세보기(id));
+		Users principal = (Users) session.getAttribute("principal");
+		model.addAttribute("detailDto", boardsService.게시글상세보기(principal.getId(), id));
 		return "boards/detail";
 	}
 
