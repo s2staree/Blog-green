@@ -5,11 +5,11 @@
 <input id="page" type="hidden" value="${sessionScope.referer.page}">
 <input id="keyword" type="hidden" value="${sessionScope.referer.keyword}">
 <div class="container">
-   <br /> <br /> <input id="id" type="hidden" value="${boards.id}" />
+   <br /> <br /> <input id="id" type="hidden" value="${detailDto.boards.id}" />
 
    <div class="d-flex">
 
-      <a href="/boards/${boards.id}/updateForm" class="btn btn-warning">수정하러가기</a>
+      <a href="/boards/${detailDto.boards.id}/updateForm" class="btn btn-warning">수정하러가기</a>
 
       <form>
          <button id="btnDelete" class="btn btn-danger">삭제</button>
@@ -21,7 +21,8 @@
    <div class="d-flex justify-content-between">
       <h3>${detailDto.boards.title}</h3>
       <div>
-         좋아요수 : <span id="countLove">${detailDto.lovesDto.count}</span> <i id="iconLove" class="${detailDto.lovesDto.isLoved ? "fa-soild : fa-regular"} fa-regular fa-heart my_pointer"></i>
+         좋아요수 : <span id="countLove">${detailDto.lovesDto.count}</span> 
+         <i id="iconLove" class='${detailDto.lovesDto.loved ? "fa-solid" : "fa-regular"} fa-heart my_pointer my_red'></i>
       </div>
    </div>
    <hr />
@@ -51,7 +52,7 @@
 				// location.href = document.referrer;
             location.href = "/?page="+page+"&keyword="+keyword;  //  /?page=?&keyword=?
          } else {
-            alert("글삭제에 실패하였습니다.");
+            alert("글삭제 실패");
          }
       });
    }
@@ -59,11 +60,11 @@
 
    // 하트 아이콘을 클릭했을때의 로직
    $("#iconLove").click(()=>{
-      let isLovedState = $("#iconLove").hasClass("fa-solid");	// fa-regular: 좋아요 하지 않은 상태, fa-solid: 좋아요 누른 상태.
+      let isLovedState = $("#iconLove").hasClass("fa-solid");	 // fa-regular: 좋아요 하지 않은 상태, fa-solid: 좋아요 누른 상태.
       if(isLovedState){
-         deleteLove(isLovedState);
+         deleteLove();
       }else{
-         insertLove(isLovedState);
+         insertLove();
       }
    });
    
@@ -76,7 +77,7 @@
          dataType: "json"
       }).done((res) => {
          if (res.code == 1) {
-            renderLoves(isLovedState);
+            renderLoves();
          }else{
             alert("좋아요 실패했습니다");
          }
@@ -90,16 +91,14 @@
    
    // 빨간색 하트 그리기
    function renderLoves(){
-		$("#iconLove").removeClass("fa-solid");
-		$("#iconLove").addClass("fa-regular");
-		$("#iconLove").css("color", "black");
+      $("#iconLove").removeClass("fa-regular");
+      $("#iconLove").addClass("fa-solid");
    }
    
    // 검정색 하트 그리기
    function renderCancelLoves(){
-		$("#iconLove").removeClass("fa-regular");
-		$("#iconLove").addClass("fa-solid");
-		$("#iconLove").css("color", "red");
+      $("#iconLove").removeClass("fa-solid");
+      $("#iconLove").addClass("fa-regular");
    }
 
 </script>

@@ -52,11 +52,17 @@ public class BoardsService {
 		return pagingDto;
 	}
 
-	public DetailDto 게시글상세보기(Integer id, Integer principalId) {
-		Boards boardsPS = boardsDao.findById(id);
-		LovesDto lovesDto = lovesDao.findByBoardsId(id, principalId);
-		return new DetailDto(boardsPS, lovesDto);
-	}
+	   public DetailDto 게시글상세보기(Integer id, Integer principalId) {
+		      System.out.println("게시글 id : "+id);
+		      Boards boardsPS = boardsDao.findById(id);
+		      LovesDto lovesDto = lovesDao.findByBoardsId(id, principalId);   
+		      if(lovesDto == null) {
+		         lovesDto = new LovesDto();
+		         lovesDto.setCount(0);
+		         lovesDto.setLoved(false);
+		      }
+		      return new DetailDto(boardsPS, lovesDto);
+		   }
 
 	public void 게시글수정하기(Integer id, UpdateDto updateDto) {
 		// 1. 영속화

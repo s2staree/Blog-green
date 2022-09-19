@@ -85,12 +85,12 @@ public class BoardsController {
 		return "boards/main";
 	}
 
-	@GetMapping("/boards/{id}")
-	public String getBoardDetail(@PathVariable Integer id, Model model) {
-		Users principal = (Users) session.getAttribute("principal");
-		model.addAttribute("detailDto", boardsService.게시글상세보기(principal.getId(), id));
-		return "boards/detail";
-	}
+	   @GetMapping("/boards/{id}")
+	   public String getBoardDetail(@PathVariable Integer id, Model model) {
+	      Users principal = (Users) session.getAttribute("principal");
+	      model.addAttribute("detailDto", boardsService.게시글상세보기(id, principal.getId()));
+	      return "boards/detail";
+	   }
 
 	@GetMapping("/boards/writeForm")
 	public String writeForm() {
