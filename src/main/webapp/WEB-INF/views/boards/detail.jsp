@@ -2,8 +2,11 @@
 
 <%@ include file="../layout/header.jsp"%>
 
+<input id="page" type="hidden" value="${sessionScope.referer.page}">
+<input id="keyword" type="hidden" value="${sessionScope.referer.keyword}">
 <div class="container">
 	<br /> <br />
+
 
 		<div class="d-flex">
 		
@@ -15,42 +18,43 @@
 			</form>
 		</div>
 
+
 	<br />
 	<div>
 		<h3>${boards.title}</h3>
+		<div></div>
 	</div>
 	<hr />
 
 	<div>${boards.content}</div>
-
 </div>
 
 <script>
-
-	${"#btnDelete"}.click(()=>{
+	$("#btnDelete").click(()=>{
 		deleteById();
 	});
 	
-	funciton deleteById(){
-			
+	function deleteById(){
 		let id = $("#id").val();
-
+		
+		let page = $("#page").val();
+		let keyword = $("#keyword").val();
+		
 		$.ajax("/boards/" + id, {
 			type: "DELETE",
-			dataType: "json",	// 응답 데이터
-			async: true
-
+			dataType: "json" // 응답 데이터
 		}).done((res) => {
 			if (res.code == 1) {
 //				alert("글삭제 완료");
-				location.href = "/";	// 메인 페이지로 이동
+				// document.referer로 찾으면 제일 쉽다.
+				// location.href = document.referrer;
+				location.href = "/?page="+page+"&keyword="+keyword;  //  /?page=?&keyword=?
 			} else {
 				alert("글삭제에 실패하였습니다.");
 			}
 		});
 	}
-
+	
 </script>
 
 <%@ include file="../layout/footer.jsp"%>
-
