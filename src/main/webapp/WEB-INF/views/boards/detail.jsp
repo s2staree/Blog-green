@@ -20,9 +20,9 @@
 
 
 	<br />
-	<div>
+	<div class="d-flex justify-content-between">
 		<h3>${boards.title}</h3>
-		<div></div>
+		<div>좋아요 수:<span id="countLove">10</span><i id="iconLove" class="fa-regular fa-heart my_pointer"></i></div>
 	</div>
 	<hr />
 
@@ -53,6 +53,37 @@
 				alert("글삭제에 실패하였습니다.");
 			}
 		});
+	}
+	
+
+	$("#iconLove").click(()=>{
+		let isLovedState = $("#iconLove").hasClass("fa-solid");	// fa-regular: 좋아요 하지 않은 상태, fa-solid: 좋아요 누른 상태.
+		if(isLovedState){
+			deleteLove();
+		}else{
+			insertLove();
+		}
+		renderLove(isLovedState);
+	});
+	
+	function insertLove(){
+		
+	}
+	
+	function DeleteLove(){
+		
+	}
+	
+	function renderLove(isLovedState){
+		if(isLovedState == true){
+			$("#iconLove").removeClass("fa-regular");
+			$("#iconLove").addClass("fa-solid");
+			$("#iconLove").css("color", "red");
+		}else{
+			$("#iconLove").removeClass("fa-solid");
+			$("#iconLove").addClass("fa-regular");
+			$("#iconLove").css("color", "black");
+		}
 	}
 	
 </script>
