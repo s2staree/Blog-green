@@ -27,7 +27,7 @@ public class BoardsService {
 	private final LovesDao lovesDao;
 	
 	public void 좋아요취소() {
-		
+		lovesDao.deleteById(id);
 	}
 	
 	public void 좋아요(Loves loves) {
@@ -39,11 +39,14 @@ public class BoardsService {
 			page = 0;
 		}
 		int startNum = page * 5;
+		
 		System.out.println("==========");
 		System.out.println("keyword : "+keyword);
 		System.out.println("==========");
+		
 		List<MainDto> boardsList = boardsDao.findAll(startNum, keyword);
 		PagingDto pagingDto = boardsDao.paging(page, keyword);
+		
 		if (boardsList.size() == 0)
 			pagingDto.setNotResult(true);
 		pagingDto.makeBlockInfo(keyword);
