@@ -5,7 +5,9 @@
 <input id="page" type="hidden" value="${sessionScope.referer.page}">
 <input id="keyword" type="hidden" value="${sessionScope.referer.keyword}">
 <div class="container">
-   <br /> <br /> <input id="id" type="hidden" value="${detailDto.boards.id}" />
+<br /> <br />
+<input id="id" type="hidden" value="${detailDto.id}" />
+<input id="id" type="hidden" value="${detailDto.boards.id}" />
 
    <div class="d-flex">
 

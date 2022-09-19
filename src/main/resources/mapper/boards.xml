@@ -36,6 +36,17 @@
 		resultType="site.metacoding.red.domain.boards.Boards">
 		SELECT * FROM boards WHERE id=#{id}
 	</select>
+	
+	   <select id="findByDetail"
+      resultType="site.metacoding.red.web.dto.response.boards.DetailDto">
+      SELECT
+      b.*,
+      (SELECT id FROM loves WHERE usersId = #{principalId} AND boardsId = #{boardsId}) lovesId,
+      (SELECT 1 FROM loves WHERE usersId = #{principalId} AND boardsId = #{boardsId}) isLoved,
+      (SELECT COUNT(*) FROM loves WHERE boardsId = #{boardsId}) loveCount
+      FROM boards b
+      WHERE b.id = #{boardsId};
+   </select>
 
 <select id="findAll"
       resultType="site.metacoding.red.web.dto.response.boards.MainDto">
