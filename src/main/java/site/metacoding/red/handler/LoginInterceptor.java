@@ -16,6 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor{
       HttpSession session = request.getSession();
       Users principal = (Users)session.getAttribute("principal");
       if(principal == null) {
+    	 response.sendRedirect("/loginForm");
          return false;
       }
       System.out.println("실행됐다고!!!!!!!!!!!!!!!!");
