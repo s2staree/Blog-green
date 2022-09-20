@@ -9,10 +9,10 @@
 		SELECT * FROM loves
 	</select>
 
-	<insert id="insert">
-		INSERT INTO loves(usersId, boardsId, createdAt)
-		VALUES(#{usersId}, #{boardsId}, now())
-	</insert>
+   <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO loves(usersId, boardsId, createdAt)
+      VALUES(#{usersId}, #{boardsId}, now())
+   </insert>
 
 	<select id="findById"
 		resultType="site.metacoding.red.domain.loves.Loves">
