@@ -90,6 +90,7 @@ public class UsersController {
 		return new CMRespDto<>(1, "로그인성공", null);
 	}
 	
+	// 인증 필요
 	@GetMapping("/users/{id}")
 	public String updateForm(@PathVariable Integer id, Model model) {
 		Users usersPS = usersService.회원정보보기(id);
@@ -97,6 +98,7 @@ public class UsersController {
 		return "users/updateForm";
 	}
 	
+	// 인증 필요
 	@PutMapping("/users/{id}")
 	public @ResponseBody CMRespDto<?> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto) {
 		Users usersPS = usersService.회원수정(id, updateDto);
@@ -104,6 +106,7 @@ public class UsersController {
 		return new CMRespDto<>(1, "회원수정 성공", null);
 	}
 	
+	// 인증 필요
 	@DeleteMapping("/users/{id}")
 	public @ResponseBody CMRespDto<?> delete(@PathVariable Integer id, HttpServletResponse response) {
 		usersService.회원탈퇴(id);
@@ -111,6 +114,7 @@ public class UsersController {
 		return new CMRespDto<>(1, "회원탈퇴성공", null);
 	}
 	
+	// 인증 불필요
 	@GetMapping("/logout")
 	public String logout() {
 		session.invalidate();
