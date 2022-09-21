@@ -17,7 +17,7 @@
 		<div class="mb-3">
 			<input id="email" type="email" class="form-control" placeholder="Enter email" maxlength="50">
 		</div>
-		<button id="btnJoin" type="button" class="btn btn-primary">회원가입</button>
+		<button id="btnJoin" type="submit" class="btn btn-primary">회원가입</button>
 	</form>
 </div>
 

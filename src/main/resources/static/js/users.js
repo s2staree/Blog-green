@@ -48,6 +48,9 @@ function join() {
 	}).done((res) => {
 		if (res.code == 1) {
 			location.href = "/loginForm";
+		}else{
+			alert(res.msg);
+			history.back();
 		}
 	});
 }
