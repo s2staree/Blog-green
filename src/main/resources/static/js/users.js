@@ -26,6 +26,11 @@ function join() {
 		alert("유저네임 중복 체크를 진행해주세요");
 		return;
 	}
+	
+	if(koreanCheck() == true){
+		alert("유저네임에 한글이 있으면 안됩니다.");
+		return;
+	}
 
 	let data = {
 		username: $("#username").val(),
@@ -130,4 +135,14 @@ function update() {
 			alert("업데이트에 실패하였습니다");
 		}
 	});
+}
+
+function koreanCheck(){
+     let username = $("#username").val();
+     let korRule = /^[가-힣]*$/;
+     if(korRule.test(username)) {
+         return true;
+     } else {
+         return false;
+     }
 }
